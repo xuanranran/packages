@@ -95,7 +95,7 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_18
+		default NODEJS_20
 		help
 		 Select node.js version.
 		 The host package version is also the same.

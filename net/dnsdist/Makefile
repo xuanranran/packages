@@ -1,14 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsdist
-PKG_VERSION:=1.9.4
+PKG_VERSION:=1.9.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
-PKG_HASH:=297d3a3751af4650665c9d3890a1d5a7a0467175f2c8607d0d5980e3fd67ef14
+PKG_HASH:=285111c2b7dff6bc8a2407106a51c365cc5bf5e6287fe459a29b396c74620332
 
-PKG_MAINTAINER:=Peter van Dijk <peter.van.dijk@powerdns.com>
+PKG_MAINTAINER:=Peter van Dijk <peter.van.dijk@powerdns.com>, Remi Gacogne <remi.gacogne@powerdns.com>
 PKG_LICENSE:=GPL-2.0-only
 PKG_LICENSE_FILES:=COPYING
 PKG_CPE_ID:=cpe:/a:powerdns:dnsdist
@@ -35,7 +35,7 @@ define Package/dnsdist/Default
 	  +libatomic \
 	  +libcap \
 	  +libstdcpp \
-	  +luajit
+	  @HAS_LUAJIT_ARCH +luajit
   URL:=https://dnsdist.org/
   VARIANT:=$(1)
   PROVIDES:=dnsdist

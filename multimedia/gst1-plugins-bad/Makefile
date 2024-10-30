@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gst1-plugins-bad
-PKG_VERSION:=1.20.5
-PKG_RELEASE:=1
+PKG_VERSION:=1.24.8
+PKG_RELEASE:=2
 
 PKG_SOURCE:=gst-plugins-bad-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=http://gstreamer.freedesktop.org/src/gst-plugins-bad/
-PKG_HASH:=f431214b0754d7037adcde93c3195106196588973e5b32dcb24938805f866363
+PKG_SOURCE_URL:=https://gstreamer.freedesktop.org/src/gst-plugins-bad/
+PKG_HASH:=35ad70de3d7cbca3089f33bb77c45750daad2ae93d79827fdbb469fa8aba84eb
 PKG_BUILD_DIR:=$(BUILD_DIR)/gst-plugins-bad-$(PKG_VERSION)
 
 PKG_MAINTAINER:=W. Michael Petullo <mike@flyn.org> \
@@ -197,7 +197,6 @@ MESON_ARGS += \
 	-Dgsm=disabled \
 	-Dipcpipeline=disabled \
 	-Diqa=disabled \
-	-Dkate=disabled \
 	-Dkms=disabled \
 	-Dladspa=disabled \
 	-Dlibde265=disabled \
@@ -229,7 +228,7 @@ MESON_ARGS += \
 	$(call GST_COND_SELECT,sndfile) \
 	-Dsoundtouch=disabled \
 	-Dspandsp=disabled \
-	-Dsrt=disabled \
+	$(call GST_COND_SELECT,srt) \
 	-Dsrtp=disabled \
 	-Dteletext=disabled \
 	-Dtinyalsa=disabled \
@@ -375,7 +374,7 @@ $(eval $(call GstBuildPlugin,interlace,interlace support,,,))
 $(eval $(call GstBuildPlugin,ivfparse,ivfparse support,,,))
 $(eval $(call GstBuildPlugin,ivtc,ivtc support,,,))
 $(eval $(call GstBuildPlugin,jp2kdecimator,jp2kdecimator support,,,))
-$(eval $(call GstBuildPlugin,jpegformat,jpegformat support,tag,,))
+$(eval $(call GstBuildPlugin,jpegformat,jpegformat support,tag codecparsers,,))
 $(eval $(call GstBuildPlugin,legacyrawparse,rawparse support,audio video,,))
 $(eval $(call GstBuildPlugin,midi,midi support,audio,,))
 $(eval $(call GstBuildPlugin,mpegpsdemux,mpegpsdemux support,pbutils,,))
@@ -416,6 +415,7 @@ $(eval $(call GstBuildPlugin,opusparse,OPUS streams library,pbutils,,+libopus))
 $(eval $(call GstBuildPlugin,sbc,sbc support,audio,,+sbc))
 $(eval $(call GstBuildPlugin,shm,POSIX shared memory source and sink,,,+librt))
 $(eval $(call GstBuildPlugin,sndfile,sndfile support,audio,,+libsndfile))
+$(eval $(call GstBuildPlugin,srt,srt support,,,+srt))
 #$(eval $(call GstBuildPlugin,srtp,srtp support,rtp,,+libsrtp))
 $(eval $(call GstBuildPlugin,webp,webp support,,,+libwebp))
 #$(eval $(call GstBuildPlugin,yadif,yadif support,,,))

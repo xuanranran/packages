@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ncdu
-PKG_VERSION:=1.18
+PKG_VERSION:=1.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://dev.yorhel.nl/download
-PKG_HASH:=3c37a1a96580c9c5d2cc352dc3c5eef0d909158c05f1cc29db4712544c8b9f95
+PKG_HASH:=5fe2bb841abe72374bb242dbb93293c4ae053078432d896a7481b2ff10be9572
 
 PKG_MAINTAINER:=Charles E. Lehner <cel@celehner.com>
 PKG_LICENSE:=MIT

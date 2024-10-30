@@ -12,7 +12,7 @@ PKG_MAINTAINER:=Federico Capoano <f.capoano@openwisp.io>
 PKG_LICENSE:=GPL-3.0-or-later
 
 PKG_SOURCE_URL:=https://github.com/openwisp/openwisp-config.git
-PKG_MIRROR_HASH:=18aac13395b2b78d87a50bcc9ab962ff12ab041ec032c214c34d3de3ac67f10a
+PKG_MIRROR_HASH:=c78dc17353c642a6f998531f18e20f0651f946d665506a000308e77c02324a79
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
 

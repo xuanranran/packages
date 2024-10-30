@@ -30,21 +30,17 @@ define Package/7z
   DEPENDS:=+libstdcpp
 endef
 
+HOST_MAKE_PATH:=CPP/7zip/Bundles/Alone2
+HOST_MAKE_FLAGS+= \
+	-f ../../cmpl_gcc.mak \
+	CC="$(HOSTCC) $(HOST_CFLAGS)" \
+	CXX="$(HOSTCXX) $(HOST_CXXFLAGS)"
+
 MAKE_PATH:=CPP/7zip/Bundles/Alone2
-
-define Host/Compile
-	+$(MAKE) $(PKG_JOBS) -C $(HOST_BUILD_DIR)/$(MAKE_PATH) \
-		-f ../../cmpl_gcc.mak \
-		CC="$(HOSTCC) $(HOST_CFLAGS)" \
-		CXX="$(HOSTCXX) $(HOST_CXXFLAGS)"
-endef
-
-define Build/Compile
-	+$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR)/$(MAKE_PATH) \
-		-f ../../cmpl_gcc.mak \
-		CC="$(TARGET_CC) $(TARGET_CFLAGS)" \
-		CXX="$(TARGET_CXX) $(TARGET_CXXFLAGS)"
-endef
+MAKE_FLAGS+= \
+	-f ../../cmpl_gcc.mak \
+	CC="$(TARGET_CC) $(TARGET_CFLAGS)" \
+	CXX="$(TARGET_CXX) $(TARGET_CXXFLAGS)"
 
 define Host/Clean
 	$(RM) $(STAGING_DIR_HOSTPKG)/bin/7z $(STAGING_DIR_HOSTPKG)/bin/7zz

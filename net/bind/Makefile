@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bind
-PKG_VERSION:=9.18.28
+PKG_VERSION:=9.20.0
 PKG_RELEASE:=1
 USERID:=bind=57:bind=57
 
@@ -22,7 +22,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:= \
 	https://www.mirrorservice.org/sites/ftp.isc.org/isc/bind9/$(PKG_VERSION) \
 	https://ftp.isc.org/isc/bind9/$(PKG_VERSION)
-PKG_HASH:=e7cce9a165f7b619eefc4832f0a8dc16b005d29e3890aed6008c506ea286a5e7
+PKG_HASH:=cc580998017b51f273964058e8cb3aa5482bc785243dea71e5556ec565a13347
 
 PKG_FIXUP:=autoreconf
 PKG_REMOVE_FILES:=aclocal.m4 libtool.m4
@@ -61,6 +61,7 @@ define Package/bind-libs
 	+libpthread \
 	+libatomic \
 	+libuv \
+	+liburcu \
 	+BIND_ENABLE_DOH:libnghttp2 \
 	+BIND_ENABLE_GSSAPI:krb5-libs \
 	+BIND_ENABLE_GSSAPI:libcomerr \
@@ -149,7 +150,6 @@ CONFIGURE_ARGS += \
 	--disable-geoip \
 	--with-openssl="$(STAGING_DIR)/usr" \
 	--without-lmdb \
-	--enable-epoll \
 	--without-readline \
 	--sysconfdir=/etc/bind
 

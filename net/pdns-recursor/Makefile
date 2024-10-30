@@ -1,23 +1,25 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pdns-recursor
-PKG_VERSION:=4.9.9
+PKG_VERSION:=5.1.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
-PKG_HASH:=cda5c7d077b90bd3ef9d6989e9bcf824609a32201093961e62eb6e40c3ef7a48
+PKG_HASH:=b3a37ebb20285ab9acbbb0e1370e623bb398ed3087f0e678f23ffa3b0063983d
 
-PKG_MAINTAINER:=Peter van Dijk <peter.van.dijk@powerdns.com>
-PKG_LICENCE:=GPL-2.0-only
-PKG_LICENCE_FILES:=COPYING
+PKG_MAINTAINER:=Peter van Dijk <peter.van.dijk@powerdns.com>, Remi Gacogne <remi.gacogne@powerdns.com>
+PKG_LICENSE:=GPL-2.0-only
+PKG_LICENSE_FILES:=COPYING
 PKG_CPE_ID:=cpe:/a:powerdns:recursor
 
 PKG_FIXUP:=autoreconf
-PKG_INSTALL:=1
+PKG_BUILD_DEPENDS:=rust/host
 PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include ../../lang/rust/rust-values.mk
 
 define Package/pdns-recursor
   SECTION:=net
@@ -35,7 +37,7 @@ define Package/pdns-recursor/description
 endef
 
 define Package/pdns-recursor/conffiles
-/etc/powerdns/pdns-recursor.conf
+/etc/powerdns/recursor.conf
 /etc/init.d/pdns-recursor
 endef
 
@@ -51,6 +53,9 @@ CONFIGURE_ARGS += \
 	--enable-dns-over-tls \
 	--enable-reproducible \
 	--disable-silent-rules
+
+MAKE_VARS += RUSTC_TARGET_ARCH=$(RUSTC_TARGET_ARCH)
+MAKE_VARS += RUST_TARGET=--target=$(RUSTC_TARGET_ARCH)
 
 define Package/pdns-recursor/install
 	$(INSTALL_DIR) $(1)/etc/powerdns
