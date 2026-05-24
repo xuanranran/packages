@@ -30,7 +30,7 @@ include $(INCLUDE_DIR)/nls.mk
 SHADOW_APPLETS := \
 	chage chfn chgpasswd chpasswd chsh expiry faillog gpasswd \
 	groupadd groupdel groupmems groupmod grpck grpconv grpunconv \
-	login logoutd newgrp newusers nologin \
+	login logoutd newgidmap newgrp newuidmap newusers nologin \
 	passwd pwck pwconv pwunconv su \
 	useradd userdel usermod vipw
 
@@ -45,7 +45,6 @@ CONFIGURE_ARGS += \
 	--without-sssd \
 	--without-libbsd \
 	--disable-logind \
-	--disable-subordinate-ids \
 	--with-bcrypt
 
 CONFIGURE_VARS += \

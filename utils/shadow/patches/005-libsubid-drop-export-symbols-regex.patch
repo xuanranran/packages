@@ -1,0 +1,14 @@
+--- a/libsubid/Makefile.am
++++ b/libsubid/Makefile.am
+@@ -1,3 +1,3 @@
+ lib_LTLIBRARIES = libsubid.la
+ libsubid_la_SOURCES = api.c
+-libsubid_la_LDFLAGS = -version-info @LIBSUBID_ABI_MAJOR@ -export-symbols-regex '^subid_'
++libsubid_la_LDFLAGS = -version-info @LIBSUBID_ABI_MAJOR@
+--- a/libsubid/Makefile.in
++++ b/libsubid/Makefile.in
+@@ -400,3 +400,3 @@ top_srcdir = @top_srcdir@
+ lib_LTLIBRARIES = libsubid.la
+ libsubid_la_SOURCES = api.c
+-libsubid_la_LDFLAGS = -version-info @LIBSUBID_ABI_MAJOR@ -export-symbols-regex '^subid_'
++libsubid_la_LDFLAGS = -version-info @LIBSUBID_ABI_MAJOR@
