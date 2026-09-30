@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sing-box
-PKG_VERSION:=1.12.25
+PKG_VERSION:=1.14.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/SagerNet/sing-box/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=881435f07b5ab8170ccf3cb69e87130759521dc0ed1ae4bfeacbe7772a93a158
+PKG_HASH:=87baf6852e37941cbe40bdd94bec81c957c88a56751cecd6bbf0e6108bc69398
 
 PKG_LICENSE:=GPL-3.0-or-later
 PKG_LICENSE_FILES:=LICENSE
@@ -18,6 +18,12 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_CPE_ID:=cpe:/a:sagernet:sing-box
 
 PKG_CONFIG_DEPENDS:= \
+	CONFIG_SING_BOX_TINY_BUILD_USBIP \
+	CONFIG_SING_BOX_TINY_BUILD_OPENVPN \
+	CONFIG_SING_BOX_TINY_BUILD_OPENCONNECT \
+	CONFIG_SING_BOX_TINY_BUILD_OCM \
+	CONFIG_SING_BOX_TINY_BUILD_CLOUDFLARED \
+	CONFIG_SING_BOX_TINY_BUILD_CCM \
 	CONFIG_SING_BOX_TINY_BUILD_ACME \
 	CONFIG_SING_BOX_TINY_BUILD_CLASH_API \
 	CONFIG_SING_BOX_TINY_BUILD_DHCP \
@@ -36,6 +42,7 @@ PKG_BUILD_FLAGS:=no-mips16
 
 GO_PKG:=github.com/sagernet/sing-box
 GO_PKG_BUILD_PKG:=$(GO_PKG)/cmd/sing-box
+GO_PKG_LDFLAGS:=-checklinkname=0
 GO_PKG_LDFLAGS_X:=$(GO_PKG)/constant.Version=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
@@ -82,6 +89,24 @@ define Package/sing-box-tiny/config
   $(call Package/sing-box/config)
 
   if PACKAGE_sing-box-tiny
+    config SING_BOX_TINY_BUILD_USBIP
+    bool "Build with USB/IP service support"
+
+    config SING_BOX_TINY_BUILD_OPENVPN
+    bool "Build with OpenVPN client and server support"
+
+    config SING_BOX_TINY_BUILD_OPENCONNECT
+    bool "Build with OpenConnect client support"
+
+    config SING_BOX_TINY_BUILD_OCM
+    bool "Build with OpenAI Codex Multiplexer service support"
+
+    config SING_BOX_TINY_BUILD_CLOUDFLARED
+    bool "Build with Cloudflare Tunnel inbound support"
+
+    config SING_BOX_TINY_BUILD_CCM
+    bool "Build with Claude Code Multiplexer service support"
+
     config SING_BOX_TINY_BUILD_ACME
     bool "Build with ACME TLS certificate issuer support"
 
@@ -129,9 +154,15 @@ define Package/sing-box-tiny/config
 endef
 
 ifeq ($(BUILD_VARIANT),full)
-  GO_PKG_TAGS:=with_acme,with_clash_api,with_dhcp,with_gvisor,with_quic,with_tailscale,with_utls,with_wireguard
+  GO_PKG_TAGS:=with_acme,with_clash_api,with_dhcp,with_gvisor,with_quic,with_tailscale,with_utls,with_wireguard,badlinkname,tfogo_checklinkname0
 else
   GO_PKG_TAGS:=$(subst $(space),$(comma),$(strip \
+	$(if $(CONFIG_SING_BOX_TINY_BUILD_USBIP),with_usbip) \
+	$(if $(CONFIG_SING_BOX_TINY_BUILD_OPENVPN),with_openvpn) \
+	$(if $(CONFIG_SING_BOX_TINY_BUILD_OPENCONNECT),with_openconnect) \
+	$(if $(CONFIG_SING_BOX_TINY_BUILD_OCM),with_ocm) \
+	$(if $(CONFIG_SING_BOX_TINY_BUILD_CLOUDFLARED),with_cloudflared) \
+	$(if $(CONFIG_SING_BOX_TINY_BUILD_CCM),with_ccm) \
 	$(if $(CONFIG_SING_BOX_TINY_BUILD_ACME),with_acme) \
 	$(if $(CONFIG_SING_BOX_TINY_BUILD_CLASH_API),with_clash_api) \
 	$(if $(CONFIG_SING_BOX_TINY_BUILD_DHCP),with_dhcp) \
@@ -143,6 +174,8 @@ else
 	$(if $(CONFIG_SING_BOX_TINY_BUILD_UTLS),with_utls) \
 	$(if $(CONFIG_SING_BOX_TINY_BUILD_V2RAY_API),with_v2ray_api) \
 	$(if $(CONFIG_SING_BOX_TINY_BUILD_WIREGUARD),with_wireguard) \
+	badlinkname \
+	tfogo_checklinkname0 \
   ))
 endif
 
