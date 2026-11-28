@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-# Copyright (c) 2018-2023 Nick Peng (pymumu@gmail.com)
+# Copyright (c) 2018-2026 Nick Peng (pymumu@gmail.com)
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=smartdns
-PKG_VERSION:=48.4
+PKG_VERSION:=48.5
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/pymumu/smartdns/tar.gz/Release$(PKG_VERSION)?
-PKG_HASH:=b07abba99e921f262ba47588e12f5b36dd849f79c0145542440eb6b7eed80553
+PKG_SOURCE:=$(PKG_NAME)-Release$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/pymumu/smartdns/tar.gz/refs/tags/Release$(PKG_VERSION)?
+PKG_HASH:=6ee3ad6fbf6da63d0fb160dfca649b81c107d93e0658e758495696f0cbaf2216
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-Release$(PKG_VERSION)
 
 PKG_MAINTAINER:=Nick Peng <pymumu@gmail.com>
